@@ -10,7 +10,7 @@
   -->
   <target name="buildbar">
     <echo message="Building Broker Archive file: ${APP.NAME}-${BUILD.NUMBER}.bar" />
-   <exec executable="${TOOLKIT.HOME}\tools\mqsicreatebar.ee" spawn="false">
+   <exec executable="${TOOLKIT.HOME}\tools\mqsicreatebar.exe" spawn="false">
       <arg value="-data" />
       <arg value="${JENKIN.WORKSPACE}" />
       <arg value="-b" />
