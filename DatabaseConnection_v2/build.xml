@@ -1,44 +1,39 @@
 <?xml version="1.0"?>
 <project name="project" default="run">
   <target name="run" description="">
-    <property name="toolkit.home" value="C:\Program Files\IBM\IIB\10.0.0.12" />
-    <property name="ant.bars.basedir" value="D:\Apache ant v1.10" />
-    <property name="workspaces.dir" value="C:\Program Files (x86)\Jenkins\workspace\JenkinAutomationDeployment" />
-    <property name="bar.name" value="${ant.bars.basedir}\postcard.bar" />
-	<property name="ipAddress" value="tcp://amit:amit@192.168.1.105:4414" />
-	<property name="executionGroup" value="default" />
-    <antcall target="mqsicreatebar.buildbar" />
+
+    <antcall target="buildbar" />
   </target>
  
   <!--
     Target to build the broker archive using mqsicreatebar
   -->
-  <target name="mqsicreatebar.buildbar">
-    <echo message="Building Broker Archive file: ${bar.name} " />
-   <exec executable="${toolkit.home}\tools\mqsicreatebar.exe" spawn="false">
+  <target name="buildbar">
+    <echo message="Building Broker Archive file: ${APP.NAME}-${BUILD.NUMBER}.bar" />
+   <exec executable="${TOOLKIT.HOME}\tools\mqsicreatebar.ee" spawn="false">
       <arg value="-data" />
-      <arg value="${workspaces.dir}" />
+      <arg value="${JENKIN.WORKSPACE}" />
       <arg value="-b" />
-      <arg value="${bar.name}" />
+      <arg value="${BAR.DIR}\${APP.NAME}-${BUILD.NUMBER}.bar" />
       <arg value="-a" />
-      <arg value="DatabaseConnection_v2" />
+      <arg value="${APP.NAME}" />
     </exec>
-    <echo message="Completed building Broker Archive file - ${bar.name} " />
+    <echo message="Completed building Broker Archive file - ${APP.NAME}-${BUILD.NUMBER}.bar" />
 	<antcall target="deploybar" />
   </target>
   
   <target name="deploybar">
-    <echo message="Deploying Broker Archive file" />
-    <exec executable="${toolkit.home}\iib.cmd" spawn="false">
+    <echo message="Deploying Broker Archive file ${APP.NAME}-${BUILD.NUMBER}.bar" />
+    <exec executable="${TOOLKIT.HOME}\iib.cmd" spawn="false">
       <arg value="mqsideploy" />
 	  <arg value="-i" />
-      <arg value="${ipAddress}" />
+      <arg value="${IIB.RUNTIME}" />
       <arg value="-e" />
-      <arg value="${executionGroup}" />
+      <arg value="${IIB.EG}" />
       <arg value="-a" />
-      <arg value="${ant.bars.basedir}\postcard.bar" />
+      <arg value="${BAR.DIR}\${APP.NAME}-${BUILD.NUMBER}.bar" />
     </exec>
-    <echo message="Completed building Broker Archive file" />
+    <echo message="Completed building Broker Archive file ${APP.NAME}-${BUILD.NUMBER}.bar" />
   </target>
   
   
