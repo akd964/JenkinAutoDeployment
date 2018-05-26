@@ -22,6 +22,7 @@
     <echo message="Completed building Broker Archive file - ${APP.NAME}-${BUILD.NUMBER}.bar" />
 	<antcall target="deploybar" />
   </target>
+	
   
   <target name="deploybar">
     <echo message="Deploying Broker Archive file ${APP.NAME}-${BUILD.NUMBER}.bar" />
