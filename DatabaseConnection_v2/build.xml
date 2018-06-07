@@ -3,7 +3,6 @@
   <target name="run" description="">
 
     <antcall target="buildbar" />
-  	
   </target>
   <!--
     Target to build the broker archive using mqsicreatebar
