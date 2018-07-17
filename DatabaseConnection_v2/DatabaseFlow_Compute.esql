@@ -9,6 +9,9 @@ CREATE COMPUTE MODULE DatabaseFlow_Compute
 		SET OutputRoot.JSON.Data.Stat.DBINSERT.STATUS='SUCCESS';
 		
 		-- CALL CopyEntireMessage();
+		--Amit
+		
+		
 		RETURN TRUE;
 	END;
 
